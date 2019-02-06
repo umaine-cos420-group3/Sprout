@@ -6,7 +6,7 @@ Dating app repositoy
 Team members: 
 Matthew Loewen
 Enoch Lin
-Tage ?
+Taidgh Robinson
 Andrew Piccirillo
 Noah Monto
-Cody Mosley
+Kody Moseley
