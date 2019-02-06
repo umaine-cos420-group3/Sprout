@@ -38,16 +38,19 @@ First start the application using
 npm start
 ```
 
-##Android
+## Android
+
 Download the Expo App, then scan the QR code in the terminal or command line through the app. Then you should be able to see the home screen on your device.
-##iOS
+
+## iOS
+
 Press `e` in the terminal or comman line, enter your email address or phone number, then follow the instructions.
 
 # Team Members
 
-Matthew Loewen  
 Enoch Lin  
-Taidgh Robinson  
-Andrew Piccirillo  
+Matthew Loewen  
+Kody Moseley  
 Noah Monto  
-Kody Moseley
+Andrew Piccirillo  
+Taidgh Robinson
