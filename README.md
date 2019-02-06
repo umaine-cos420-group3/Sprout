@@ -24,7 +24,7 @@ Go into `Sprout/` foler
 cd Sprout
 ```
 
-then use this command to install required packages
+Then use this command to install required packages
 
 ```sh
 npm install
