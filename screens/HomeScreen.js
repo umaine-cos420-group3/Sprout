@@ -52,6 +52,7 @@ export default class HomeScreen extends React.Component {
               Change this text and your app will automatically reload.
             </Text>
             <Text>This is Enoch's edit &lt;3</Text>
+			<Text>Hey there Kody</Text>
           </View>
 
           <View style={styles.helpContainer}>
