@@ -5,11 +5,12 @@ Dating app repositoy
 
 # Installation
 
-Make sure you have installed Node.js and can run `npm` in the terminal or command line. To check existing or installed Node.js environment open the terminal/command line and type in
+Make sure you have installed Node.js and can run `npm` in the terminal or command line. Please also install `yarn` to make your life a lot easier. To check existing or installed Node.js environment open the terminal/command line and type in
 
 ```sh
 node -v
 npm -v
+yarn -v
 ```
 
 After that, clone the GitHub repository using
@@ -27,7 +28,7 @@ cd Sprout
 Then use this command to install required packages
 
 ```sh
-npm install
+yarn
 ```
 
 # Run the Application
@@ -38,13 +39,15 @@ First start the application using
 npm start
 ```
 
+Make sure the connection mode is on `Tunnel`, then 
+
 ## Android
 
 Download the Expo App, then scan the QR code in the terminal or command line through the app. Then you should be able to see the home screen on your device.
 
 ## iOS
 
-Press `e` in the terminal or comman line, enter your email address or phone number, then follow the instructions.
+Press `e` in the terminal or command line, enter your email address or phone number, then follow the instructions.
 
 # Team Members
 
