@@ -31,6 +31,12 @@ Then use this command to install required packages
 yarn
 ```
 
+You might have to install Expo CLI manually, using
+
+```sh
+npm install -g expo-cli
+```
+
 # Run the Application
 
 First start the application using
