@@ -124,7 +124,7 @@ If you want to unstage some changes, you can use
 git checkout -- [name_of_your_file]
 ```
 
-You can always check the status again to see which files will be commited
+You can always check the status again to see which files will be commited.
 
 ## Commit Changes
 
