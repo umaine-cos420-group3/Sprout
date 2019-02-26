@@ -6,7 +6,7 @@ import {
   ScrollView,
   View,
   TextInput,
-  DatePicker
+  
 } from "react-native";
 
 class RegisterScreen extends Component {
