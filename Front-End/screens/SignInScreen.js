@@ -16,6 +16,10 @@ class SignInScreen extends Component {
     await AsyncStorage.setItem("userToken", "abc");
     this.props.navigation.navigate("Main");
   };
+  _registerAsync = async () => {
+    await AsyncStorage.setItem("userToken", "abc");
+    this.props.navigation.navigate("Reg");
+  };
 
   render() {
     return (
@@ -23,6 +27,7 @@ class SignInScreen extends Component {
         <Signin />
         <View style={styles.buttonContainer}>
           <Button title="Sign in!" onPress={this._signInAsync} />
+          <Button title="Sign up!" onPress={this._registerAsync} color = "#4CAF50"/>
         </View>
       </ScrollView>
     );
@@ -36,8 +41,8 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   buttonContainer: {
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1,
+    flexDirection: "column",
   }
 });
 

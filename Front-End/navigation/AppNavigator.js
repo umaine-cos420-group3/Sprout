@@ -7,8 +7,11 @@ import {
 
 import MainTabNavigator from "./MainTabNavigator";
 import SignInScreen from "../screens/SignInScreen";
+import RegisterScreen from "../components/RegisterScreen/RegisterScreen";
 
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const RegStack = createStackNavigator({ RegisterScreen: RegisterScreen });
+
 
 export default createAppContainer(
   createSwitchNavigator(
@@ -17,7 +20,8 @@ export default createAppContainer(
       // Read more at https://reactnavigation.org/docs/en/auth-flow.html
 
       Main: MainTabNavigator,
-      Auth: AuthStack
+      Auth: AuthStack,
+      Reg: RegStack
     },
     {
       initialRouteName: "Auth"
