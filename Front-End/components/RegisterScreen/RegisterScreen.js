@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   AsyncStorage,
   Button,
@@ -29,8 +30,35 @@ class RegisterScreen extends Component {
           <TextInput style={styles.textInput} placeholder="First Name" />
           <TextInput
             style={styles.textInput}
-            secureTextEntry={true}
             placeholder="Last Name"
+            
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Email Address"
+            
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Username"
+            
+          />
+
+          <TextInput
+            style={styles.textInput}
+            secureTextEntry={true}
+            placeholder="Password"
+            
+          />
+          <TextInput
+            style={styles.textInput}
+            secureTextEntry={true}
+            placeholder="Confirm Password"
+            
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Date of Birth (MM/DD/YY)"
             
           />
           <Button title="Register!" onPress={this._signInAsync} />
@@ -50,14 +78,15 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         height: 40,
         fontSize: 20,
-        borderColor: "gray",
+        borderColor: "white",
         borderBottomWidth: 1,
         marginTop: 5,
     },
     scollContainer: {
         flex: 1,
         padding: 30,
-        flexDirection: "column"
+        flexDirection: "column",
+        backgroundColor: 'mediumseagreen'
       },
     });
 
