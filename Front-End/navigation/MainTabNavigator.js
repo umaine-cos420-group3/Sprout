@@ -53,8 +53,23 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const tabNavigatorConfig = {
+  tabBarOptions:{
+    style:{
+      backgroundColor: "mediumseagreen",
+      height: 70,
+    },
+    labelStyle:{
+      marginTop: 30,
+    }
+  }
+};
+
 export default createMaterialTopTabNavigator({
-  HomeStack,
-  LinksStack,
+  
   SettingsStack,
-});
+  HomeStack,
+  LinksStack
+  }, 
+  tabNavigatorConfig
+);
