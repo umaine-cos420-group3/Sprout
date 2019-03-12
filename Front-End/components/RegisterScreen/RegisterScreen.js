@@ -44,7 +44,7 @@ class RegisterScreen extends Component {
           <TextInput
             style={styles.textInput}
             placeholder="First Name"
-            onChange={this.handleChange("firtName")}
+            onChange={this.handleChange("firstName")}
           />
           <TextInput
             style={styles.textInput}
