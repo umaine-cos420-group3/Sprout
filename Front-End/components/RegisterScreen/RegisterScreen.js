@@ -6,9 +6,9 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
-
 class RegisterScreen extends Component {
   state = {
     firstName: String,
@@ -39,7 +39,8 @@ class RegisterScreen extends Component {
   render() {
     return (
       <ScrollView style={styles.scollContainer}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={{ flex: 1 }}
+          keyboardVerticalOffset={100} behavior={"position"}>
           <TextInput
             style={styles.textInput}
             placeholder="First Name"
@@ -79,7 +80,7 @@ class RegisterScreen extends Component {
             onChange={this.handleChange("dateOfBirth")}
           />
           <Button title="Register!" onPress={this._signInAsync} />
-        </View>
+          </KeyboardAvoidingView>
       </ScrollView>
     );
   }
