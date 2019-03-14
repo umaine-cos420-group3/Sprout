@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class SettingsScreen extends React.Component {
+export default class ProfileScreen extends React.Component {
   static navigationOptions = {
     title: "app.json"
   };
