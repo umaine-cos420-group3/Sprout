@@ -5,8 +5,10 @@
 *.log
 /logs
 
+# Expo
+.expo
+*/.expo
 
-.expo/*
 npm-debug.*
 *.jks
 *.p12
