@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { ExpoConfigView } from "@expo/samples";
 import SignOutButton from "../components/ProfileScreen/SignOutButton";
+import IceBreaker from "../components/ProfileScreen/IceBreaker";
 
 const styles = StyleSheet.create({
   scollContainer: {
@@ -12,18 +13,17 @@ const styles = StyleSheet.create({
 
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
-    title: "app.json"
+    header: null
   };
+
   _signOut = () => {
     this.props.navigation.navigate("Auth");
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
     return (
       <ScrollView style={styles.scollContainer}>
-        <ExpoConfigView />
+        <IceBreaker />
         <SignOutButton signOutFunction={this._signOut} />
       </ScrollView>
     );
