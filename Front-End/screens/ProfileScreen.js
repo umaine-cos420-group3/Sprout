@@ -22,7 +22,10 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.scollContainer}>
+      <ScrollView
+        style={styles.scollContainer}
+        keyboardShouldPersistTaps={"always"}
+      >
         <IceBreaker />
         <SignOutButton signOutFunction={this._signOut} />
       </ScrollView>

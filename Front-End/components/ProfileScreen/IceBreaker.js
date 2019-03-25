@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
   questionContainer: {
     flexGrow: 2,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
     borderBottomColor: "white",
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
+    maxHeight: height * 0.3 * 0.75
   },
   question: {
     paddingHorizontal: width * 0.01,
@@ -105,8 +106,28 @@ class IceBreaker extends Component {
     this.setState({ answer2Selected: true, answer1Selected: false });
   };
 
-  handleEdit = () => {
-    this.setState({ editing: true });
+  handleEditButton = () => {
+    const editing = this.state.editing;
+    this.setState({ editing: !editing }, () => {
+      this.state.editing ? this.ref.focus() : null;
+    });
+  };
+
+  handleInput = name => event => {
+    //There is probably a better way to handle this
+    switch (name) {
+      case "question":
+        SelectedQuestion.question = event.nativeEvent.text;
+        break;
+      case "answer1":
+        SelectedQuestion.answer1 = event.nativeEvent.text;
+        break;
+      case "answer2":
+        SelectedQuestion.answer2 = event.nativeEvent.text;
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
@@ -119,7 +140,12 @@ class IceBreaker extends Component {
         }
         onPress={this.highlightButton1}
       >
-        <TextInput style={styles.answerText} editable={this.state.editing}>
+        <TextInput
+          style={styles.answerText}
+          editable={this.state.editing}
+          pointerEvents={"box-none"}
+          onChange={this.handleInput("answer1")}
+        >
           {SelectedQuestion.answer1}
         </TextInput>
       </TouchableOpacity>
@@ -133,7 +159,12 @@ class IceBreaker extends Component {
         }
         onPress={this.highlightButton2}
       >
-        <TextInput style={styles.answerText} editable={this.state.editing}>
+        <TextInput
+          style={styles.answerText}
+          editable={this.state.editing}
+          pointerEvents={"box-none"}
+          onChange={this.handleInput("answer2")}
+        >
           {SelectedQuestion.answer2}
         </TextInput>
       </TouchableOpacity>
@@ -142,16 +173,18 @@ class IceBreaker extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.editButtonContainer}>
-          <Button onPress={this.handleEdit} style={styles.editButton}>
-            edit
+          <Button onPress={this.handleEditButton} style={styles.editButton}>
+            {this.state.editing ? "done" : "edit"}
           </Button>
         </View>
         <Card style={styles.cardContainer}>
           <Card.Content style={styles.questionContainer}>
             <TextInput
+              ref={ref => (this.ref = ref)}
               style={styles.question}
               multiline
               editable={this.state.editing}
+              onChange={this.handleInput("question")}
             >
               {SelectedQuestion.question}
             </TextInput>
