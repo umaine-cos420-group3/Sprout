@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import { Button, Card } from "react-native-paper";
 import { scaledSize } from "../ScaledSize";
 
 const { width, height } = Dimensions.get("window");
