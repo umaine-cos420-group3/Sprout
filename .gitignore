@@ -1,8 +1,19 @@
-node_modules/**/*
-.expo/*
+# Dependency directories
+*node_modules/
+
+# Logs
+*.log
+/logs
+
+# Expo
+.expo
+*/.expo
+
 npm-debug.*
 *.jks
 *.p12
 *.key
 *.mobileprovision
-yarn-error.log
+
+.DS_Store
+*/.DS_Store

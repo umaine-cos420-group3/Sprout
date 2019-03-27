@@ -12,7 +12,7 @@ import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
 
-export default class HomeScreen extends React.Component {
+export default class MatchScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -52,7 +52,7 @@ export default class HomeScreen extends React.Component {
               Change this text and your app will automatically reload.
             </Text>
             <Text>This is Enoch's edit &lt;3</Text>
-			<Text>Hey there Kody</Text>
+            <Text>Hey there Kody</Text>
           </View>
 
           <View style={styles.helpContainer}>
