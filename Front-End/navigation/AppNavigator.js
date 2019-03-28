@@ -7,11 +7,10 @@ import {
 
 import MainTabNavigator from "./MainTabNavigator";
 import SignInScreen from "../screens/SignInScreen";
-import RegisterScreen from "../components/RegisterScreen/RegisterScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RegStack = createStackNavigator({ RegisterScreen: RegisterScreen });
-
 
 export default createAppContainer(
   createSwitchNavigator(

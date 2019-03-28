@@ -1,23 +1,27 @@
 import React, { Component } from "react";
-
 import {
   AsyncStorage,
   Button,
   StyleSheet,
   ScrollView,
-  View,
   TextInput,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from "react-native";
+import { Base64 } from "js-base64";
+import ErrorMessage from "../components/ErrorMessage";
+import { UserCredentials } from "../components/UserCredentials";
+
 class RegisterScreen extends Component {
   state = {
-    firstName: String,
-    lasName: String,
-    email: String,
-    username: String,
-    password: String,
-    confirmPassword: String,
-    dateOfBirth: String
+    firstName: "",
+    lasName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    dateOfBirth: "",
+    error: false,
+    errorMessage: ""
   };
 
   static navigationOptions = {
@@ -27,20 +31,51 @@ class RegisterScreen extends Component {
     await AsyncStorage.setItem("userToken", "abc");
     this.props.navigation.navigate("Main");
   };
-  _registerAsync = async () => {
-    await AsyncStorage.setItem("userToken", "abc");
-    this.props.navigation.navigate("Reg");
-  };
 
   handleChange = name => event => {
-    this.setState({ name: event.target.value });
+    this.setState({ [name]: event.nativeEvent.text });
+  };
+
+  dismissError = () => {
+    this.setState({ error: false });
+  };
+
+  checkUserInputs = () => {
+    if (!this.state.email) {
+      this.setState({ error: true, errorMessage: "Empty email address!" });
+      return;
+    }
+    if (!this.state.username) {
+      this.setState({ error: true, errorMessage: "Empty username!" });
+      return;
+    }
+    if (!this.state.password) {
+      this.setState({ error: true, errorMessage: "Empty password!" });
+      return;
+    }
+    if (this.state.password != this.state.confirmPassword) {
+      this.setState({ error: true, errorMessage: "Passwords not the same!" });
+      return;
+    } else {
+      UserCredentials.push({
+        username: this.state.username,
+        email: this.state.email,
+        password: Base64.encode(this.state.password),
+        firstName: this.state.firstName,
+        lastName: this.state.lasName
+      });
+      this._signInAsync();
+    }
   };
 
   render() {
     return (
       <ScrollView style={styles.scollContainer}>
-        <KeyboardAvoidingView style={{ flex: 1 }}
-          keyboardVerticalOffset={100} behavior={"position"}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={100}
+          behavior={"position"}
+        >
           <TextInput
             style={styles.textInput}
             placeholder="First Name"
@@ -79,8 +114,13 @@ class RegisterScreen extends Component {
             placeholder="Date of Birth (MM/DD/YY)"
             onChange={this.handleChange("dateOfBirth")}
           />
-          <Button title="Register!" onPress={this._signInAsync} />
-          </KeyboardAvoidingView>
+          <Button title="Register!" onPress={this.checkUserInputs} />
+        </KeyboardAvoidingView>
+        <ErrorMessage
+          visible={this.state.error}
+          message={this.state.errorMessage}
+          dismissError={this.dismissError}
+        />
       </ScrollView>
     );
   }
