@@ -4,7 +4,9 @@ export var UserCredentials = [
   {
     username: "Admin",
     email: "sproutadmin@gmail.com",
-    password: Base64.encode("Admin")
+    password: Base64.encode("Admin"),
+    firstName: "Sprout",
+    lastName: "Inc."
   }
 ];
 
