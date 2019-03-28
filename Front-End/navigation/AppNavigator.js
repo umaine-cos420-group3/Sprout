@@ -12,7 +12,6 @@ import RegisterScreen from "../components/RegisterScreen/RegisterScreen";
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 const RegStack = createStackNavigator({ RegisterScreen: RegisterScreen });
 
-
 export default createAppContainer(
   createSwitchNavigator(
     {
