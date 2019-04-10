@@ -25,7 +25,7 @@ class RegisterScreen extends Component {
   };
 
   static navigationOptions = {
-    title: "Please sign in"
+    title: "Please register"
   };
   _signInAsync = async () => {
     await AsyncStorage.setItem("userToken", "abc");
