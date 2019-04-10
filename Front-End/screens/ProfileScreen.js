@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import SignOutButton from "../components/ProfileScreen/SignOutButton";
 import IceBreaker from "../components/ProfileScreen/IceBreaker";
+import BioSection from "../components/ProfileScreen/BioSection";
 
 const styles = StyleSheet.create({
   scollContainer: {
@@ -25,7 +26,9 @@ export default class ProfileScreen extends React.Component {
         style={styles.scollContainer}
         keyboardShouldPersistTaps={"always"}
       >
+        <BioSection/>
         <IceBreaker />
+        
         <SignOutButton signOutFunction={this._signOut} />
       </ScrollView>
     );
