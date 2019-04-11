@@ -144,6 +144,33 @@ After that, pushing your local branch and commits can be done using
 git push origin [name_of_your_branch]
 ```
 
+# Database Set-Up
+
+## MYSQL installation
+
+Fllow the instructions here <https://dev.mysql.com/doc/refman/8.0/en/installing.html> to install the MYSQL server for your respective opperating system. 
+
+You may need to run 
+```sh
+mysql
+```
+from the command line to set up an account for the first time. 
+
+## Initializing the Database
+From the command line, change into the DataBase folder and run
+```sh
+mysql -u [username] -p [password] < Scehma.sql
+```
+
+If you are using the defualt mysql configuration you will run 
+
+```sh
+mysql -u root < Scehma.sql
+```
+
+This will set up the table and you will not need to deal with mysql from here on out and you can work from nodeJS.
+
+
 # Team Members
 
 Enoch Lin  
