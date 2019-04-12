@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Button, Card } from "react-native-paper";
 import { scaledSize } from "../ScaledSize";
+import ErrorMessage from "../ErrorMessage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -95,7 +96,9 @@ class IceBreaker extends Component {
   state = {
     editing: false,
     answer1Selected: false,
-    answer2Selected: false
+    answer2Selected: false,
+    error: false,
+    errorMessage: ""
   };
 
   highlightButton1 = () => {
@@ -108,9 +111,31 @@ class IceBreaker extends Component {
 
   handleEditButton = () => {
     const editing = this.state.editing;
-    this.setState({ editing: !editing }, () => {
-      this.state.editing ? this.ref.focus() : null;
+    SelectedQuestion.question
+      ? SelectedQuestion.answer1 && SelectedQuestion.answer2
+        ? null
+        : this.showError("Answers cannot be empty!")
+      : this.showError("Question cannot be empty!");
+    if (
+      SelectedQuestion.question &&
+      SelectedQuestion.answer1 &&
+      SelectedQuestion.answer2
+    ) {
+      this.setState({ editing: !editing }, () => {
+        this.state.editing ? this.ref.focus() : null;
+      });
+    }
+  };
+
+  showError = message => {
+    this.setState({
+      error: true,
+      errorMessage: message
     });
+  };
+
+  dismissError = () => {
+    this.setState({ error: false });
   };
 
   handleInput = name => event => {
@@ -194,6 +219,11 @@ class IceBreaker extends Component {
             {answerButton2}
           </View>
         </Card>
+        <ErrorMessage
+          visible={this.state.error}
+          message={this.state.errorMessage}
+          dismissError={this.dismissError}
+        />
       </View>
     );
   }
