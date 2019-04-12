@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import SignIn from "../components/SignInScreen/SignIn";
 import ErrorMessage from "../components/ErrorMessage";
-import { UserCredentials } from "../components/UserCredentials";
+import { Users } from "../components/MockedDatabase";
 
 class SignInScreen extends Component {
   constructor(props) {
@@ -25,12 +25,12 @@ class SignInScreen extends Component {
   static navigationOptions = {
     title: "Please sign in"
   };
-  _signInAsync = async () => {
-    await AsyncStorage.setItem("userToken", "abc");
+  _signInAsync = async user => {
+    const index = Users.indexOf(user).toString();
+    await AsyncStorage.setItem("userLoggedIn", index);
     this.props.navigation.navigate("Main");
   };
-  _registerAsync = async () => {
-    await AsyncStorage.setItem("userToken", "abc");
+  toRegisterScreen = () => {
     this.props.navigation.navigate("Reg");
   };
 
@@ -44,14 +44,12 @@ class SignInScreen extends Component {
 
   checkCredential = () => {
     let user =
-      UserCredentials.find(
-        user => user.username === this.state.usernameOrEmail
-      ) ||
-      UserCredentials.find(user => user.email === this.state.usernameOrEmail);
+      Users.find(user => user.username === this.state.usernameOrEmail) ||
+      Users.find(user => user.email === this.state.usernameOrEmail);
 
     user
       ? user.password == this.state.password
-        ? this._signInAsync()
+        ? this._signInAsync(user)
         : this.setState({ error: true, errorMessage: "Incorrect credentials!" })
       : this.setState({ error: true, errorMessage: "Incorrect credentials!" });
   };
@@ -74,7 +72,7 @@ class SignInScreen extends Component {
           <Button title="Sign in!" onPress={this.checkCredential} />
           <Button
             title="Sign up!"
-            onPress={this._registerAsync}
+            onPress={this.toRegisterScreen}
             color="#4CAF50"
           />
         </View>
