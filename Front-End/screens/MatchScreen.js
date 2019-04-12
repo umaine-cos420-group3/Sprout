@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30
-  },
+  }
 });
 
 export default class MatchScreen extends React.Component {
@@ -33,9 +33,7 @@ export default class MatchScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
-        >
-          <IceBreaker />    
-        </ScrollView>    
+        />
       </View>
     );
   }
