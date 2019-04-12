@@ -1,8 +1,9 @@
 import React from "react";
-import { KeyboardAvoidingView, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 import SignOutButton from "../components/ProfileScreen/SignOutButton";
 import IceBreaker from "../components/ProfileScreen/IceBreaker";
 import BioSection from "../components/ProfileScreen/BioSection";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const styles = StyleSheet.create({
   scollContainer: {
@@ -22,20 +23,13 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView
-        style={styles.scollContainer}
-        keyboardShouldPersistTaps={"always"}
-      >
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          keyboardVerticalOffset={100}
-          behavior={"position"}
-        >
+      <KeyboardAwareScrollView style={styles.scollContainer}>
+        <View keyboardShouldPersistTaps={"always"}>
           <BioSection />
           <IceBreaker />
-        </KeyboardAvoidingView>
-        <SignOutButton signOutFunction={this._signOut} />
-      </ScrollView>
+          <SignOutButton signOutFunction={this._signOut} />
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
