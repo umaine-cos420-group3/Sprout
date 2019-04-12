@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Base64 } from "js-base64";
 import ErrorMessage from "../components/ErrorMessage";
-import { UserCredentials } from "../components/UserCredentials";
+import { MockDatabase } from "../components/MockDatabase";
 
 class RegisterScreen extends Component {
   state = {
@@ -57,7 +57,7 @@ class RegisterScreen extends Component {
       this.setState({ error: true, errorMessage: "Passwords not the same!" });
       return;
     } else {
-      UserCredentials.push({
+      MockDatabase.push({
         username: this.state.username,
         email: this.state.email,
         password: Base64.encode(this.state.password),

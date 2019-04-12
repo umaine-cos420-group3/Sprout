@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import SignIn from "../components/SignInScreen/SignIn";
 import ErrorMessage from "../components/ErrorMessage";
-import { UserCredentials } from "../components/UserCredentials";
+import { MockDatabase } from "../components/MockDatabase";
 
 class SignInScreen extends Component {
   constructor(props) {
@@ -44,10 +44,10 @@ class SignInScreen extends Component {
 
   checkCredential = () => {
     let user =
-      UserCredentials.find(
+      MockDatabase.find(
         user => user.username === this.state.usernameOrEmail
       ) ||
-      UserCredentials.find(user => user.email === this.state.usernameOrEmail);
+      MockDatabase.find(user => user.email === this.state.usernameOrEmail);
 
     user
       ? user.password == this.state.password
