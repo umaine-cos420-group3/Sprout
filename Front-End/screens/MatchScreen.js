@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  AsyncStorage,
   Image,
   Platform,
   ScrollView,
@@ -14,6 +15,7 @@ import { MonoText } from "../components/StyledText";
 import IceBreaker from "../components/ProfileScreen/IceBreaker";
 import LikeButton from "../components/MatchScreen/LikeButton";
 import DislikeButton from "../components/MatchScreen/DislikeButton";
+import { Users } from "../components/MockedDatabase";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,14 +28,40 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    height: 150,
+    height: 150
   }
 });
 
-
 export default class MatchScreen extends React.Component {
+  state = {
+    OtherUsers: [
+      {
+        firstName: "",
+        lasName: "",
+        iceBreaker: { question: "", answer1: "", answer2: "" }
+      }
+    ]
+  };
+
   static navigationOptions = {
     header: null
+  };
+
+  componentDidMount = async () => {
+    try {
+      const indexString = await AsyncStorage.getItem("userLoggedIn");
+      if (indexString) {
+        const UsersDuplicate = Users.slice(0);
+        UsersDuplicate.splice(parseInt(indexString, 10), 1);
+        const OtherUsers = UsersDuplicate;
+        this.setState({
+          OtherUsers
+        });
+        console.log(Users);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -43,11 +71,11 @@ export default class MatchScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <IceBreaker /> 
+          <IceBreaker iceBreaker={this.state.OtherUsers[0].iceBreaker} />
         </ScrollView>
         <View style={styles.buttonsContainer}>
           <DislikeButton />
-          <LikeButton />        
+          <LikeButton />
         </View>
       </View>
     );

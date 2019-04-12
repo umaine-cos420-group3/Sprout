@@ -34,12 +34,25 @@ export var Users = [
     password: Base64.encode("Admin"),
     firstName: "Sprout",
     lastName: "Inc.",
-    iceBreakerIndex: 0,
+    iceBreakerIndex: Math.floor(Math.random() * MockedQuestionDataBase.length),
     get iceBreaker() {
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 0,
     bio: ""
+  },
+  {
+    username: "FakeUser1",
+    email: "fakeEmail1@fmail.com",
+    password: Base64.encode("IAmFake"),
+    firstName: "Susan",
+    lastName: "Roboto",
+    iceBreakerIndex: Math.floor(Math.random() * MockedQuestionDataBase.length),
+    get iceBreaker() {
+      return MockedQuestionDataBase[this.iceBreakerIndex];
+    },
+    answerSelected: 1,
+    bio: "Hello there!"
   }
 ];
 
