@@ -8,7 +8,6 @@
     "build": "node_modules/babel-cli/bin/babel.js ./ --source-maps --out-dir dist",
     "start": "node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js server.js",
     "populate": "node_modules/babel-cli/bin/babel-node.js populate.js"
-
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +23,7 @@
     "express": "^4.16.4",
     "moment": "^2.24.0",
     "mongoose": "^5.4.14",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0"
   }
 }
