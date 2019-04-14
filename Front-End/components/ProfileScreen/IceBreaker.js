@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Button, Card } from "react-native-paper";
 import { scaledSize } from "../ScaledSize";
+import ErrorMessage from "../ErrorMessage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -67,35 +68,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const MockedQuestionDataBase = [
-  {
-    question: "Would you rather eat pizza or burger for the rest of your life?",
-    answer1: "Pizza",
-    answer2: "Burger"
-  },
-  {
-    question:
-      "Would you rather know when you are going to die or how you are going to die?",
-    answer1: "When",
-    answer2: "How"
-  },
-  {
-    question:
-      "If you were reborn in a new life, would you rather be alive in the past or future?",
-    answer1: "Past",
-    answer2: "Future"
-  }
-];
-
-let index = Math.floor(Math.random() * MockedQuestionDataBase.length);
-
-const SelectedQuestion = MockedQuestionDataBase[index];
-
 class IceBreaker extends Component {
   state = {
     editing: false,
     answer1Selected: false,
-    answer2Selected: false
+    answer2Selected: false,
+    error: false,
+    errorMessage: ""
   };
 
   highlightButton1 = () => {
@@ -108,22 +87,44 @@ class IceBreaker extends Component {
 
   handleEditButton = () => {
     const editing = this.state.editing;
-    this.setState({ editing: !editing }, () => {
-      this.state.editing ? this.ref.focus() : null;
+    this.props.iceBreaker.question
+      ? this.props.iceBreaker.answer1 && this.props.iceBreaker.answer2
+        ? null
+        : this.showError("Answers cannot be empty!")
+      : this.showError("Question cannot be empty!");
+    if (
+      this.props.iceBreaker.question &&
+      this.props.iceBreaker.answer1 &&
+      this.props.iceBreaker.answer2
+    ) {
+      this.setState({ editing: !editing }, () => {
+        this.state.editing ? this.ref.focus() : null;
+      });
+    }
+  };
+
+  showError = message => {
+    this.setState({
+      error: true,
+      errorMessage: message
     });
+  };
+
+  dismissError = () => {
+    this.setState({ error: false });
   };
 
   handleInput = name => event => {
     //There is probably a better way to handle this
     switch (name) {
       case "question":
-        SelectedQuestion.question = event.nativeEvent.text;
+        this.props.iceBreaker.question = event.nativeEvent.text;
         break;
       case "answer1":
-        SelectedQuestion.answer1 = event.nativeEvent.text;
+        this.props.iceBreaker.answer1 = event.nativeEvent.text;
         break;
       case "answer2":
-        SelectedQuestion.answer2 = event.nativeEvent.text;
+        this.props.iceBreaker.answer2 = event.nativeEvent.text;
         break;
       default:
         break;
@@ -146,7 +147,7 @@ class IceBreaker extends Component {
           pointerEvents={"box-none"}
           onChange={this.handleInput("answer1")}
         >
-          {SelectedQuestion.answer1}
+          {this.props.iceBreaker.answer1}
         </TextInput>
       </TouchableOpacity>
     );
@@ -165,7 +166,7 @@ class IceBreaker extends Component {
           pointerEvents={"box-none"}
           onChange={this.handleInput("answer2")}
         >
-          {SelectedQuestion.answer2}
+          {this.props.iceBreaker.answer2}
         </TextInput>
       </TouchableOpacity>
     );
@@ -186,7 +187,7 @@ class IceBreaker extends Component {
               editable={this.state.editing}
               onChange={this.handleInput("question")}
             >
-              {SelectedQuestion.question}
+              {this.props.iceBreaker.question}
             </TextInput>
           </Card.Content>
           <View style={styles.answerContainer}>
@@ -194,6 +195,11 @@ class IceBreaker extends Component {
             {answerButton2}
           </View>
         </Card>
+        <ErrorMessage
+          visible={this.state.error}
+          message={this.state.errorMessage}
+          dismissError={this.dismissError}
+        />
       </View>
     );
   }
