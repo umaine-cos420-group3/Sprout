@@ -20,6 +20,8 @@ const MockedQuestionDataBase = [
   }
 ];
 
+//this function is used when creating a user object, it assigns a random number to user object's
+//iceBreakerIndex attribute, and set their iceBreaker attribute accordingly
 export const getRandomQuestion = user => {
   user.iceBreakerIndex = Math.floor(
     Math.random() * MockedQuestionDataBase.length
@@ -35,6 +37,7 @@ export var Users = [
     firstName: "Sprout",
     lastName: "Inc.",
     iceBreakerIndex: Math.floor(Math.random() * MockedQuestionDataBase.length),
+    //this is how you can initialize an attribute using another attribute inside of the object
     get iceBreaker() {
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },

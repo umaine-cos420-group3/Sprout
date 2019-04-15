@@ -27,6 +27,9 @@ class RegisterScreen extends Component {
   static navigationOptions = {
     title: "Please register"
   };
+
+  //this function is a little different from the one in SignInScreen, because we can
+  //assume the index of new user.
   _signInAsync = async index => {
     await AsyncStorage.setItem("userLoggedIn", index.toString());
     this.props.navigation.navigate("Main");
@@ -65,7 +68,7 @@ class RegisterScreen extends Component {
         lastName: this.state.lasName,
         iceBreakerIndex: 0
       };
-      getRandomQuestion(userToAdd);
+      getRandomQuestion(userToAdd); //usage of the function in MockedDatabase
       Users.push(userToAdd);
       this._signInAsync(Users.length - 1);
     }

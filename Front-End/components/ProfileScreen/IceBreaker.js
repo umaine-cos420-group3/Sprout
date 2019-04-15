@@ -10,6 +10,7 @@ import { Button, Card } from "react-native-paper";
 import { scaledSize } from "../ScaledSize";
 import ErrorMessage from "../ErrorMessage";
 
+//Use width and height of the phone screen to dynamically set the component styles
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -64,9 +65,15 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgreen"
   },
   answerText: {
-    fontSize: scaledSize(22)
+    fontSize: scaledSize(22) //scaledSize() automatically changes the font size if the screen is bigger or smaller
   }
 });
+
+/*
+To use this class, `iceBreaker` has to be assigned in props (See ProfileScreen.js for example). 
+iceBreaker prop has to be an object with attributes question, answer1 and answer2. Otehrwise, 
+this component will break. (I mean I can add error checkings but that's for a later date)
+*/
 
 class IceBreaker extends Component {
   state = {
@@ -98,11 +105,15 @@ class IceBreaker extends Component {
       this.props.iceBreaker.answer2
     ) {
       this.setState({ editing: !editing }, () => {
-        this.state.editing ? this.ref.focus() : null;
+        this.state.editing ? this.ref.focus() : null; //this sets focus to the question input and calls for keyboard
       });
     }
   };
 
+  //showError and dismissError functions are needed for ErrorMessage component, as well as
+  //variables error and errorMessage in state. This is no way near a good implementation
+  //and I can probably improve it, but I'd rather focus on getting as much done as
+  //possible for now. - Enoch
   showError = message => {
     this.setState({
       error: true,
@@ -115,7 +126,6 @@ class IceBreaker extends Component {
   };
 
   handleInput = name => event => {
-    //There is probably a better way to handle this
     switch (name) {
       case "question":
         this.props.iceBreaker.question = event.nativeEvent.text;
@@ -181,7 +191,7 @@ class IceBreaker extends Component {
         <Card style={styles.cardContainer}>
           <Card.Content style={styles.questionContainer}>
             <TextInput
-              ref={ref => (this.ref = ref)}
+              ref={ref => (this.ref = ref)} //this is the reference used in handleEditButton function
               style={styles.question}
               multiline
               editable={this.state.editing}
