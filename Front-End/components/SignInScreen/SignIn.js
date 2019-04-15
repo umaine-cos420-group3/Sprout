@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { Base64 } from "js-base64";
+import { Button } from "../../node_modules/react-native-elements";
 
 class SignIn extends Component {
   handleUsernameInput = event => {

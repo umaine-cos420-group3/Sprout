@@ -54,6 +54,12 @@ class SignInScreen extends Component {
       : this.setState({ error: true, errorMessage: "Incorrect credentials!" });
   };
 
+  login = () => {
+    fetch('http://127.0.0.1:3000/').then(results => {
+      console.log(results);
+    }); 
+  };
+
   dismissError = () => {
     this.setState({ error: false });
   };
@@ -69,9 +75,9 @@ class SignInScreen extends Component {
           onPasswordChange={this.savePassword}
         />
         <View style={styles.buttonContainer}>
-          <Button title="Sign in!" onPress={this.checkCredential} />
+          <Button title="Sign in" onPress={this.checkCredential} />
           <Button
-            title="Sign up!"
+            title="Sign up"
             onPress={this.toRegisterScreen}
             color="#4CAF50"
           />
