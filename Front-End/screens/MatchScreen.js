@@ -47,8 +47,13 @@ export default class MatchScreen extends React.Component {
     header: null
   };
 
+  //componentDidMount is run before the component mounts. It makes sense to fetch
+  //other users' information here
   componentDidMount = async () => {
     try {
+      //find the logged-in user first, then create a copy of the user list so we don't
+      //change the original one in the mocked database. Remove the current user from
+      //the list, then save it to state.
       const indexString = await AsyncStorage.getItem("userLoggedIn");
       if (indexString) {
         const UsersDuplicate = Users.slice(0);

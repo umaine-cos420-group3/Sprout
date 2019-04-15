@@ -26,12 +26,14 @@ export default class ProfileScreen extends React.Component {
     this.props.navigation.navigate("Auth");
   };
 
+  //componentDidMount is run before the component mounts. It makes sense to fetch
+  //the logged-in user information here.
   componentDidMount = async () => {
     try {
       const indexString = await AsyncStorage.getItem("userLoggedIn");
       if (indexString) {
         this.setState({
-          iceBreaker: Users[parseInt(indexString, 10)].iceBreaker
+          iceBreaker: Users[parseInt(indexString, 10)].iceBreaker //parseInt(string, base) changes the string index back to int
         });
       }
     } catch (error) {
