@@ -10,6 +10,18 @@ import SignIn from "../components/SignInScreen/SignIn";
 import ErrorMessage from "../components/ErrorMessage";
 import { Users } from "../components/MockedDatabase";
 
+const styles = StyleSheet.create({
+  scollContainer: {
+    flex: 1,
+    padding: 30,
+    flexDirection: "column"
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "column"
+  }
+});
+
 class SignInScreen extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +37,17 @@ class SignInScreen extends Component {
   static navigationOptions = {
     title: "Please sign in"
   };
+
   _signInAsync = async user => {
+    //find user in the array of users (should be fetched from database).
+    //Note that index is type string, because AsyncStorage.setItem only
+    //accepts strings. It stores the information of current user so we
+    //can fetch it anywhere in the app.
     const index = Users.indexOf(user).toString();
     await AsyncStorage.setItem("userLoggedIn", index);
     this.props.navigation.navigate("Main");
   };
+
   toRegisterScreen = () => {
     this.props.navigation.navigate("Reg");
   };
@@ -85,17 +103,5 @@ class SignInScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scollContainer: {
-    flex: 1,
-    padding: 30,
-    flexDirection: "column"
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: "column"
-  }
-});
 
 export default SignInScreen;
