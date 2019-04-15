@@ -2,6 +2,18 @@ CREATE DATABASE IF NOT EXISTS Sprout;
 
 USE Sprout; 
 
+CREATE TABLE IF NOT EXISTS `Matches` (
+  `idMatch` INT NOT NULL,
+  `matcher_key` BIGINT(20) NULL,
+  `matchee_key` BIGINT(20) NULL,
+  PRIMARY KEY (`idMatch`));
+
+CREATE TABLE IF NOT EXISTS `Report` (
+  `idReport` INT NOT NULL,
+  `reporting_user_id` BIGINT(20) NULL,
+  `Reason` VARCHAR(45) NULL,
+  PRIMARY KEY (`idReport`));
+
 CREATE TABLE IF NOT EXISTS `Users` (
   `idUsers` INT NOT NULL,
   `first_name` VARCHAR(25) NULL,
@@ -22,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   INDEX `fk_Users_Report1_idx` (`Report_idReport` ASC),
   CONSTRAINT `fk_Users_Match`
     FOREIGN KEY (`Match_idMatch`)
-    REFERENCES `Match` (`idMatch`)
+    REFERENCES `Matches` (`idMatch`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Users_Report1`
@@ -31,16 +43,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE IF NOT EXISTS `Match` (
-  `idMatch` INT NOT NULL,
-  `matcher_key` BIGINT(20) NULL,
-  `matchee_key` BIGINT(20) NULL,
-  PRIMARY KEY (`idMatch`));
 
 
-CREATE TABLE IF NOT EXISTS `Report` (
-  `idReport` INT NOT NULL,
-  `reporting_user_id` BIGINT(20) NULL,
-  `Reason` VARCHAR(45) NULL,
-  PRIMARY KEY (`idReport`));
-
+INSERT INTO Report (`idReport`) VALUES (0);
+INSERT INTO Matches (`idMatch`) VALUES (0);

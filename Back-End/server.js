@@ -1,19 +1,31 @@
 var express = require('express'); 
 var mysql = require('mysql');
-const app = express(); 
+var Sprout = express(); 
+var bodyParser = require('body-parser');
+
 
 var connection = mysql.createConnection({
 	host: "localhost",
-	user: "matt",
+	user: "root",
 	password: "password",
-	database: "sprout"
+	database: "Sprout"
 });
 
-app.get('/', (req, res) => {
-	console.log("hello world");
+connection.connect(function(err) {
+	if (err) throw err;
+	console.log("Connected!");
 });
 
-const server = app.listen(3000, 'localhost', function() {
+Sprout.use( bodyParser.json() );       // to support JSON-encoded bodies
+Sprout.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
+
+Sprout.get('/', (req, res) => {
+	console.log("Sprout home page");
+});
+
+var server = Sprout.listen(3000, 'localhost', function() {
 	var host = server.address().address
 	var port = server.address().port
 
@@ -21,7 +33,21 @@ const server = app.listen(3000, 'localhost', function() {
 	console.log('Example app listening at http://%s:%s', host, port);
 });
 
-connection.connect(function(err) {
-	if (err) throw err;
-	console.log("Connected!");
+
+Sprout.get('/user', function (req, res) {
+   connection.query('select * from Users', function (error, results, fields) {
+	  if (error) throw error;
+	  res.end(JSON.stringify(results));
+	});
 });
+
+Sprout.post('/user', function (req, res) {
+   var params  = req.body;
+   console.log(params);
+   connection.query('INSERT INTO Users SET ?', params, function (error, results, fields) {
+	  if (error) throw error;
+	  res.end(JSON.stringify(results));
+	});
+});
+
+
