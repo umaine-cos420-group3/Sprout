@@ -73,7 +73,7 @@ class SignInScreen extends Component {
   };
 
   login = () => {
-    fetch('http://127.0.0.1:3000/').then(results => {
+    fetch('').then(results => {
       console.log(results);
     }); 
   };

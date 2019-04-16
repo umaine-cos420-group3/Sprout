@@ -5,10 +5,10 @@ var bodyParser = require('body-parser');
 
 
 var connection = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "password",
-	database: "Sprout"
+	host: "www.mloewen.com",
+	user: "mattcode_Sprout",
+	password: "sproutApp",
+	database: "mattcode_Sprout"
 });
 
 connection.connect(function(err) {
@@ -33,7 +33,6 @@ var server = Sprout.listen(3000, 'localhost', function() {
 	console.log('Example app listening at http://%s:%s', host, port);
 });
 
-
 Sprout.get('/user', function (req, res) {
    connection.query('select * from Users', function (error, results, fields) {
 	  if (error) throw error;
@@ -49,5 +48,3 @@ Sprout.post('/user', function (req, res) {
 	  res.end(JSON.stringify(results));
 	});
 });
-
-
