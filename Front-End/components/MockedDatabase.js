@@ -36,6 +36,8 @@ export var Users = [
     password: Base64.encode("Admin"),
     firstName: "Sprout",
     lastName: "Inc.",
+    gender: "",
+    genderPreference: ["M", "F"],
     iceBreakerIndex: Math.floor(Math.random() * MockedQuestionDataBase.length),
     //this is how you can initialize an attribute using another attribute inside of the object
     get iceBreaker() {
@@ -50,12 +52,15 @@ export var Users = [
     password: Base64.encode("IAmFake"),
     firstName: "Susan",
     lastName: "Roboto",
+    gender: "F",
+    genderPreference: ["M"],
     iceBreakerIndex: Math.floor(Math.random() * MockedQuestionDataBase.length),
     get iceBreaker() {
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 1,
-    bio: "Hello there! \nMy name is Susan, looking forward to know you more!"
+    bio:
+      "Hello there! \nMy name is Susan, looking forward to know more about you!"
   }
 ];
 
