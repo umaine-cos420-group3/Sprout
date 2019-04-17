@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `first_name` VARCHAR(25) NULL,
   `last_name` VARCHAR(25) NULL,
   `email` VARCHAR(100) NULL,
-  `pwd` VARCHAR(257) NULL,
+  `pwd` VARCHAR(257) NULL,ss
   `ib_question` VARCHAR(100) NULL,
   `ib_answer_one` VARCHAR(128) NULL,
   `ib_answer_two` VARCHAR(128) NULL,
