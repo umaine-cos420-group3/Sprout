@@ -16,6 +16,7 @@ import IceBreaker from "../components/ProfileScreen/IceBreaker";
 import LikeButton from "../components/MatchScreen/LikeButton";
 import DislikeButton from "../components/MatchScreen/DislikeButton";
 import { Users } from "../components/MockedDatabase";
+import BioSection from "../components/ProfileScreen/BioSection";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +39,8 @@ export default class MatchScreen extends React.Component {
       {
         firstName: "",
         lasName: "",
-        iceBreaker: { question: "", answer1: "", answer2: "" }
+        iceBreaker: { question: "", answer1: "", answer2: "" },
+        bio: ""
       }
     ]
   };
@@ -77,6 +79,7 @@ export default class MatchScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}
         >
           <IceBreaker iceBreaker={this.state.OtherUsers[0].iceBreaker} />
+          <BioSection bio={this.state.OtherUsers[0].bio}/>
         </ScrollView>
         <View style={styles.buttonsContainer}>
           <DislikeButton />
