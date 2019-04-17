@@ -42,7 +42,7 @@ export var Users = [
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 0,
-    bio: ""
+    bio: "Hi, I am the only admin of the Sprout app!"
   },
   {
     username: "FakeUser1",
@@ -55,7 +55,7 @@ export var Users = [
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 1,
-    bio: "Hello there!"
+    bio: "Hello there! \nMy name is Susan, looking forward to know you more!"
   }
 ];
 

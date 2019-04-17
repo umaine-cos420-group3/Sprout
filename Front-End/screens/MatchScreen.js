@@ -78,11 +78,8 @@ export default class MatchScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <IceBreaker
-            iceBreaker={this.state.OtherUsers[0].iceBreaker}
-            editable={false}
-          />
-          <BioSection bio={this.state.OtherUsers[0].bio} editable={false} />
+          <IceBreaker iceBreaker={this.state.OtherUsers[0].iceBreaker} />
+          <BioSection user={this.state.OtherUsers[0]} />
         </ScrollView>
         <View style={styles.buttonsContainer}>
           <DislikeButton />

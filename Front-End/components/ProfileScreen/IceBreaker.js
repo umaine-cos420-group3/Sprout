@@ -14,7 +14,6 @@ import ErrorMessage from "../ErrorMessage";
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  editButton: {},
   editButtonContainer: {
     alignItems: "flex-end"
   },
@@ -184,7 +183,7 @@ class IceBreaker extends Component {
     //conditional rendering
     const editButton = this.props.editable ? (
       <View style={styles.editButtonContainer}>
-        <Button onPress={this.handleEditButton} style={styles.editButton}>
+        <Button onPress={this.handleEditButton}>
           {this.state.editing ? "done" : "edit"}
         </Button>
       </View>

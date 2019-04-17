@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import { Avatar, Button, Card, Icon } from "react-native-paper";
 import { scaledSize } from "../ScaledSize";
+import { Users } from "../MockedDatabase";
 
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  editButton: {},
   editButtonContainer: {
     alignItems: "flex-end"
   },
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginHorizontal: width * 0.07,
-    marginVertical: height * 0.05
+    marginTop: height * 0.05
   },
   bioContainer: {
     flexGrow: 2,
@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
   },
   bio: {
     paddingHorizontal: width * 0.01,
-    textAlign: "center",
-    fontSize: scaledSize(12)
+    fontSize: scaledSize(18)
   }
 });
 
@@ -54,22 +53,16 @@ class BioSection extends Component {
     });
   };
 
-  handleInput = name => event => {
-    //There is probably a better way to handle this
-    switch (name) {
-      case "bio":
-        SelectedQuestion.question = event.nativeEvent.text;
-        break;
-      default:
-        break;
-    }
+  handleInput = event => {
+    const index = Users.findIndex(this.props.user);
+    Users[index].bio = event.nativeEvent.text;
   };
 
   render() {
     //conditional rendering
     const editButton = this.props.editable ? (
       <View style={styles.editButtonContainer}>
-        <Button onPress={this.handleEditButton} style={styles.editButton}>
+        <Button onPress={this.handleEditButton}>
           {this.state.editing ? "done" : "edit"}
         </Button>
       </View>
@@ -82,19 +75,19 @@ class BioSection extends Component {
         {editButton}
         <Card style={styles.cardContainer}>
           <Card.Title
-            title="Susan"
+            title={this.props.user.firstName}
             subtitle="Bio"
             left={props => <Avatar.Icon {...props} icon="person" />}
           />
-          <Card.Content style={styles.bioContainer}>
+          <Card.Content>
             <TextInput
               ref={ref => (this.ref = ref)}
               style={styles.bio}
               multiline
               editable={this.state.editing}
-              onChange={this.handleInput("question")}
+              onChange={this.handleInput}
             >
-              {SelectedQuestion.question}
+              {this.props.user.bio}
             </TextInput>
           </Card.Content>
         </Card>

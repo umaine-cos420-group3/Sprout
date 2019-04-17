@@ -15,7 +15,11 @@ const styles = StyleSheet.create({
 
 export default class ProfileScreen extends React.Component {
   state = {
-    iceBreaker: { question: "", answer1: "", answer2: "" }
+    user: {
+      firstName: "",
+      iceBreaker: { question: "", answer1: "", answer2: "" },
+      bio: ""
+    }
   };
 
   static navigationOptions = {
@@ -31,9 +35,10 @@ export default class ProfileScreen extends React.Component {
   componentDidMount = async () => {
     try {
       const indexString = await AsyncStorage.getItem("userLoggedIn");
+      const user = Users[parseInt(indexString, 10)]; //parseInt(string, base) changes the string index back to int
       if (indexString) {
         this.setState({
-          iceBreaker: Users[parseInt(indexString, 10)].iceBreaker //parseInt(string, base) changes the string index back to int
+          user
         });
       }
     } catch (error) {
@@ -45,8 +50,8 @@ export default class ProfileScreen extends React.Component {
     return (
       <KeyboardAwareScrollView style={styles.scollContainer}>
         <View keyboardShouldPersistTaps={"always"}>
-          <BioSection editable={true}/>
-          <IceBreaker iceBreaker={this.state.iceBreaker} />
+          <BioSection user={this.state.user} editable={true} />
+          <IceBreaker iceBreaker={this.state.user.iceBreaker} editable={true} />
           <SignOutButton signOutFunction={this._signOut} />
         </View>
       </KeyboardAwareScrollView>
