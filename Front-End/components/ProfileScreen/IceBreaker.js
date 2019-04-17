@@ -181,13 +181,20 @@ class IceBreaker extends Component {
       </TouchableOpacity>
     );
 
+    //conditional rendering
+    const editButton = this.props.editable ? (
+      <View style={styles.editButtonContainer}>
+        <Button onPress={this.handleEditButton} style={styles.editButton}>
+          {this.state.editing ? "done" : "edit"}
+        </Button>
+      </View>
+    ) : (
+      <View />
+    );
+
     return (
       <View style={styles.container}>
-        <View style={styles.editButtonContainer}>
-          <Button onPress={this.handleEditButton} style={styles.editButton}>
-            {this.state.editing ? "done" : "edit"}
-          </Button>
-        </View>
+        {editButton}
         <Card style={styles.cardContainer}>
           <Card.Content style={styles.questionContainer}>
             <TextInput

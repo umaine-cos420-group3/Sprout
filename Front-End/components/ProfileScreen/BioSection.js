@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const SelectedQuestion  = "Please enter your bio information";
+const SelectedQuestion = "Please enter your bio information";
 class BioSection extends Component {
   state = {
-    editing: false,
+    editing: false
   };
   handleEditButton = () => {
     const editing = this.state.editing;
@@ -66,16 +66,26 @@ class BioSection extends Component {
   };
 
   render() {
+    //conditional rendering
+    const editButton = this.props.editable ? (
+      <View style={styles.editButtonContainer}>
+        <Button onPress={this.handleEditButton} style={styles.editButton}>
+          {this.state.editing ? "done" : "edit"}
+        </Button>
+      </View>
+    ) : (
+      <View />
+    );
 
     return (
       <View style={styles.container}>
-        <View style={styles.editButtonContainer}>
-          <Button onPress={this.handleEditButton} style={styles.editButton}>
-            {this.state.editing ? "done" : "edit"}
-          </Button>
-        </View>
+        {editButton}
         <Card style={styles.cardContainer}>
-        <Card.Title title="Susan" subtitle="Bio" left={(props) => <Avatar.Icon {...props} icon="person" />} />
+          <Card.Title
+            title="Susan"
+            subtitle="Bio"
+            left={props => <Avatar.Icon {...props} icon="person" />}
+          />
           <Card.Content style={styles.bioContainer}>
             <TextInput
               ref={ref => (this.ref = ref)}
