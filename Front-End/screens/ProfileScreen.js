@@ -43,7 +43,7 @@ export default class ProfileScreen extends React.Component {
     return (
       <KeyboardAwareScrollView style={styles.scollContainer}>
         <View keyboardShouldPersistTaps={"always"}>
-          <BioSection />
+          <BioSection editable={true}/>
           <IceBreaker iceBreaker={this.state.iceBreaker} />
           <SignOutButton signOutFunction={this._signOut} />
         </View>
