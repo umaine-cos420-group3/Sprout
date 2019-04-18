@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  AsyncStorage,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Button,
-  View
-} from "react-native";
-import { WebBrowser } from "expo";
-import { MonoText } from "../components/StyledText";
+import { AsyncStorage, ScrollView, StyleSheet, Text, View } from "react-native";
 import IceBreaker from "../components/ProfileScreen/IceBreaker";
 import LikeButton from "../components/MatchScreen/LikeButton";
 import DislikeButton from "../components/MatchScreen/DislikeButton";
@@ -42,6 +30,7 @@ export default class MatchScreen extends React.Component {
         firstName: "",
         lasName: "",
         iceBreaker: { question: "", answer1: "", answer2: "" },
+        answerSelected: 0,
         bio: ""
       }
     ],
@@ -68,7 +57,6 @@ export default class MatchScreen extends React.Component {
         this.setState({
           OtherUsers
         });
-        console.log(Users);
       }
     } catch (error) {
       console.log(error);
@@ -101,9 +89,8 @@ export default class MatchScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}
         >
           <IceBreaker
-            iceBreaker={
-              this.state.OtherUsers[this.state.OtherUsersIndex].iceBreaker
-            }
+            user={this.state.OtherUsers[this.state.OtherUsersIndex]}
+            compareAnswers={true}
           />
           <BioSection
             user={this.state.OtherUsers[this.state.OtherUsersIndex]}
