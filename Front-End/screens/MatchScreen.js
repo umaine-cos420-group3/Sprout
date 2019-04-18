@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  AsyncStorage,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Button,
-  View
-} from "react-native";
-import { WebBrowser } from "expo";
-import { MonoText } from "../components/StyledText";
+import { AsyncStorage, ScrollView, StyleSheet, Text, View } from "react-native";
 import IceBreaker from "../components/ProfileScreen/IceBreaker";
 import LikeButton from "../components/MatchScreen/LikeButton";
 import DislikeButton from "../components/MatchScreen/DislikeButton";
@@ -35,14 +23,18 @@ const styles = StyleSheet.create({
 
 export default class MatchScreen extends React.Component {
   state = {
+    UserId: -1,
+    OtherUsersIndex: 0,
     OtherUsers: [
       {
         firstName: "",
         lasName: "",
         iceBreaker: { question: "", answer1: "", answer2: "" },
+        answerSelected: 0,
         bio: ""
       }
-    ]
+    ],
+    noUsersLeft: false
   };
 
   static navigationOptions = {
@@ -56,39 +48,70 @@ export default class MatchScreen extends React.Component {
       //find the logged-in user first, then create a copy of the user list so we don't
       //change the original one in the mocked database. Remove the current user from
       //the list, then save it to state.
-      const indexString = await AsyncStorage.getItem("userLoggedIn");
-      if (indexString) {
+      const idString = await AsyncStorage.getItem("userLoggedIn");
+      if (idString) {
+        this.setState({ UserId: parseInt(idString, 10) });
         const UsersDuplicate = Users.slice(0);
-        UsersDuplicate.splice(parseInt(indexString, 10), 1);
-        const OtherUsers = UsersDuplicate;
+        const currentUser = UsersDuplicate.splice(parseInt(idString, 10), 1);
+        const OtherUsers = UsersDuplicate.filter(user => {
+          return currentUser[0].genderPreference.includes(user.gender);
+        });
         this.setState({
           OtherUsers
         });
-        console.log(Users);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  handleGoToNext = () => {
+    if (this.state.OtherUsersIndex < this.state.OtherUsers.length - 1) {
+      this.setState({
+        OtherUsersIndex: this.state.OtherUsersIndex + 1
+      });
+    } else {
+      this.setState({
+        noUsersLeft: true
+      });
+    }
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
+    const display = this.state.noUsersLeft ? (
+      <View>
+        <Text style={{ textAlign: "center" }}>
+          Sorry, no one else is using Sprout :/
+        </Text>
+      </View>
+    ) : (
+      <>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
           <IceBreaker
-            iceBreaker={this.state.OtherUsers[0].iceBreaker}
-            editable={false}
+            user={this.state.OtherUsers[this.state.OtherUsersIndex]}
+            compareAnswers={true}
           />
-          <BioSection bio={this.state.OtherUsers[0].bio} editable={false} />
+          <BioSection
+            user={this.state.OtherUsers[this.state.OtherUsersIndex]}
+          />
         </ScrollView>
         <View style={styles.buttonsContainer}>
-          <DislikeButton />
-          <LikeButton />
+          <DislikeButton
+            userId={this.state.UserId}
+            goToNext={this.handleGoToNext}
+          />
+          <LikeButton
+            userId={this.state.UserId}
+            likedId={this.state.OtherUsers[this.state.OtherUsersIndex].id}
+            goToNext={this.handleGoToNext}
+          />
         </View>
-      </View>
+      </>
     );
+
+    return <View style={styles.container}>{display}</View>;
   }
 }

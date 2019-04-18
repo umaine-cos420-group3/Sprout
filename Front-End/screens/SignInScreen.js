@@ -43,8 +43,8 @@ class SignInScreen extends Component {
     //Note that index is type string, because AsyncStorage.setItem only
     //accepts strings. It stores the information of current user so we
     //can fetch it anywhere in the app.
-    const index = Users.indexOf(user).toString();
-    await AsyncStorage.setItem("userLoggedIn", index);
+    const id = Users[Users.indexOf(user)].id.toString();
+    await AsyncStorage.setItem("userLoggedIn", id);
     this.props.navigation.navigate("Main");
   };
 
@@ -73,9 +73,9 @@ class SignInScreen extends Component {
   };
 
   login = () => {
-    fetch('').then(results => {
+    fetch("").then(results => {
       console.log(results);
-    }); 
+    });
   };
 
   dismissError = () => {

@@ -14,7 +14,6 @@ import ErrorMessage from "../ErrorMessage";
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  editButton: {},
   editButtonContainer: {
     alignItems: "flex-end"
   },
@@ -84,25 +83,45 @@ class IceBreaker extends Component {
     errorMessage: ""
   };
 
-  highlightButton1 = () => {
+  handleButton1 = () => {
     this.setState({ answer1Selected: true, answer2Selected: false });
+    if (this.props.compareAnswers) {
+      if (this.props.user.answerSelected == 1) {
+        this.showError("They picked the same answer!!");
+      }
+      if (this.props.user.answerSelected == 2) {
+        this.showError("They picked the other answer.");
+      }
+    } else {
+      this.props.user.answerSelected = 1;
+    }
   };
 
-  highlightButton2 = () => {
+  handleButton2 = () => {
     this.setState({ answer2Selected: true, answer1Selected: false });
+    if (this.props.compareAnswers) {
+      if (this.props.user.answerSelected == 2) {
+        this.showError("They picked the same answer!!");
+      }
+      if (this.props.user.answerSelected == 1) {
+        this.showError("They picked the other answer.");
+      }
+    } else {
+      this.props.user.answerSelected = 2;
+    }
   };
 
   handleEditButton = () => {
     const editing = this.state.editing;
-    this.props.iceBreaker.question
-      ? this.props.iceBreaker.answer1 && this.props.iceBreaker.answer2
+    this.props.user.iceBreaker.question
+      ? this.props.user.iceBreaker.answer1 && this.props.user.iceBreaker.answer2
         ? null
         : this.showError("Answers cannot be empty!")
       : this.showError("Question cannot be empty!");
     if (
-      this.props.iceBreaker.question &&
-      this.props.iceBreaker.answer1 &&
-      this.props.iceBreaker.answer2
+      this.props.user.iceBreaker.question &&
+      this.props.user.iceBreaker.answer1 &&
+      this.props.user.iceBreaker.answer2
     ) {
       this.setState({ editing: !editing }, () => {
         this.state.editing ? this.ref.focus() : null; //this sets focus to the question input and calls for keyboard
@@ -128,13 +147,13 @@ class IceBreaker extends Component {
   handleInput = name => event => {
     switch (name) {
       case "question":
-        this.props.iceBreaker.question = event.nativeEvent.text;
+        this.props.user.iceBreaker.question = event.nativeEvent.text;
         break;
       case "answer1":
-        this.props.iceBreaker.answer1 = event.nativeEvent.text;
+        this.props.user.iceBreaker.answer1 = event.nativeEvent.text;
         break;
       case "answer2":
-        this.props.iceBreaker.answer2 = event.nativeEvent.text;
+        this.props.user.iceBreaker.answer2 = event.nativeEvent.text;
         break;
       default:
         break;
@@ -149,7 +168,7 @@ class IceBreaker extends Component {
             ? styles.touchableSelected
             : styles.touchableNotSelected
         }
-        onPress={this.highlightButton1}
+        onPress={this.handleButton1}
       >
         <TextInput
           style={styles.answerText}
@@ -157,7 +176,7 @@ class IceBreaker extends Component {
           pointerEvents={"box-none"}
           onChange={this.handleInput("answer1")}
         >
-          {this.props.iceBreaker.answer1}
+          {this.props.user.iceBreaker.answer1}
         </TextInput>
       </TouchableOpacity>
     );
@@ -168,7 +187,7 @@ class IceBreaker extends Component {
             ? styles.touchableSelected
             : styles.touchableNotSelected
         }
-        onPress={this.highlightButton2}
+        onPress={this.handleButton2}
       >
         <TextInput
           style={styles.answerText}
@@ -176,7 +195,7 @@ class IceBreaker extends Component {
           pointerEvents={"box-none"}
           onChange={this.handleInput("answer2")}
         >
-          {this.props.iceBreaker.answer2}
+          {this.props.user.iceBreaker.answer2}
         </TextInput>
       </TouchableOpacity>
     );
@@ -184,7 +203,7 @@ class IceBreaker extends Component {
     //conditional rendering
     const editButton = this.props.editable ? (
       <View style={styles.editButtonContainer}>
-        <Button onPress={this.handleEditButton} style={styles.editButton}>
+        <Button onPress={this.handleEditButton}>
           {this.state.editing ? "done" : "edit"}
         </Button>
       </View>
@@ -204,7 +223,7 @@ class IceBreaker extends Component {
               editable={this.state.editing}
               onChange={this.handleInput("question")}
             >
-              {this.props.iceBreaker.question}
+              {this.props.user.iceBreaker.question}
             </TextInput>
           </Card.Content>
           <View style={styles.answerContainer}>
