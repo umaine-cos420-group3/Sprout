@@ -32,6 +32,8 @@ class LikeButton extends Component {
       this.showError("It's a match!");
       Users[this.props.userId].matched.push(this.props.likedId);
       Users[this.props.likedId].matched.push(this.props.userId);
+    } else {
+      this.props.goToNext();
     }
   };
 

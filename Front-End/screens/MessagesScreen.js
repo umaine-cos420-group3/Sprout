@@ -1,18 +1,42 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
-import { ExpoLinksView } from "@expo/samples";
+import { AsyncStorage, ScrollView, StyleSheet, Text } from "react-native";
+import { Users } from "../components/MockedDatabase";
 
 export default class MessagesScreen extends React.Component {
+  state = {
+    matchedIds: []
+  };
   static navigationOptions = {
     title: "Messages"
+  };
+  componentDidMount = () => {
+    //this is so the component will update every time users swtch tabs
+    this.props.navigation.addListener("willFocus", async playload => {
+      try {
+        const idString = await AsyncStorage.getItem("userLoggedIn");
+        const user = Users[parseInt(idString, 10)];
+        if (idString) {
+          this.setState({
+            matchedIds: user.matched
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-         * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
+        <Text style={{ textAlign: "center" }}>People you matched with: </Text>
+        {this.state.matchedIds.map(id => {
+          return (
+            <Text style={{ textAlign: "center" }} key={id}>
+              {Users[id].firstName + " " + Users[id].lastName}
+            </Text>
+          );
+        })}
       </ScrollView>
     );
   }

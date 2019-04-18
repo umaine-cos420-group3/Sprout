@@ -34,9 +34,9 @@ export default class ProfileScreen extends React.Component {
   //the logged-in user information here.
   componentDidMount = async () => {
     try {
-      const indexString = await AsyncStorage.getItem("userLoggedIn");
-      const user = Users[parseInt(indexString, 10)]; //parseInt(string, base) changes the string index back to int
-      if (indexString) {
+      const idString = await AsyncStorage.getItem("userLoggedIn");
+      const user = Users[parseInt(idString, 10)]; //parseInt(string, base) changes the string index back to int
+      if (idString) {
         this.setState({
           user
         });
