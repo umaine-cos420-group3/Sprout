@@ -52,8 +52,10 @@ export default class MatchScreen extends React.Component {
       if (idString) {
         this.setState({ UserId: parseInt(idString, 10) });
         const UsersDuplicate = Users.slice(0);
-        UsersDuplicate.splice(parseInt(idString, 10), 1);
-        const OtherUsers = UsersDuplicate;
+        const currentUser = UsersDuplicate.splice(parseInt(idString, 10), 1);
+        const OtherUsers = UsersDuplicate.filter(user => {
+          return currentUser[0].genderPreference.includes(user.gender);
+        });
         this.setState({
           OtherUsers
         });
