@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const SelectedQuestion = "Please enter your bio information";
 class BioSection extends Component {
   state = {
     editing: false

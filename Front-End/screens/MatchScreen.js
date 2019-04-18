@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
 
 export default class MatchScreen extends React.Component {
   state = {
+    UserId: -1,
+    OtherUsersIndex: 0,
     OtherUsers: [
       {
         firstName: "",
@@ -42,7 +44,8 @@ export default class MatchScreen extends React.Component {
         iceBreaker: { question: "", answer1: "", answer2: "" },
         bio: ""
       }
-    ]
+    ],
+    noUsersLeft: false
   };
 
   static navigationOptions = {
@@ -58,6 +61,7 @@ export default class MatchScreen extends React.Component {
       //the list, then save it to state.
       const indexString = await AsyncStorage.getItem("userLoggedIn");
       if (indexString) {
+        this.setState({ UserId: parseInt(indexString, 10) });
         const UsersDuplicate = Users.slice(0);
         UsersDuplicate.splice(parseInt(indexString, 10), 1);
         const OtherUsers = UsersDuplicate;
@@ -71,21 +75,54 @@ export default class MatchScreen extends React.Component {
     }
   };
 
+  handleGoToNext = () => {
+    if (this.state.OtherUsersIndex < this.state.OtherUsers.length - 1) {
+      this.setState({
+        OtherUsersIndex: this.state.OtherUsersIndex + 1
+      });
+    } else {
+      this.setState({
+        noUsersLeft: true
+      });
+    }
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
+    const display = this.state.noUsersLeft ? (
+      <View>
+        <Text style={{ textAlign: "center" }}>
+          Sorry, no one else is using Sprout :/
+        </Text>
+      </View>
+    ) : (
+      <>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <IceBreaker iceBreaker={this.state.OtherUsers[0].iceBreaker} />
-          <BioSection user={this.state.OtherUsers[0]} />
+          <IceBreaker
+            iceBreaker={
+              this.state.OtherUsers[this.state.OtherUsersIndex].iceBreaker
+            }
+          />
+          <BioSection
+            user={this.state.OtherUsers[this.state.OtherUsersIndex]}
+          />
         </ScrollView>
         <View style={styles.buttonsContainer}>
-          <DislikeButton />
-          <LikeButton />
+          <DislikeButton
+            userId={this.state.UserId}
+            goToNext={this.handleGoToNext}
+          />
+          <LikeButton
+            userId={this.state.UserId}
+            likedIndex={this.state.OtherUsers[this.state.OtherUsersIndex].id}
+            goToNext={this.handleGoToNext}
+          />
         </View>
-      </View>
+      </>
     );
+
+    return <View style={styles.container}>{display}</View>;
   }
 }

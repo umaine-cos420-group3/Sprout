@@ -36,8 +36,8 @@ class RegisterScreen extends Component {
 
   //this function is a little different from the one in SignInScreen, because we can
   //assume the index of new user.
-  _signInAsync = async index => {
-    await AsyncStorage.setItem("userLoggedIn", index.toString());
+  _signInAsync = async id => {
+    await AsyncStorage.setItem("userLoggedIn", id.toString());
     this.props.navigation.navigate("Main");
   };
 
@@ -78,18 +78,23 @@ class RegisterScreen extends Component {
       return;
     } else {
       const userToAdd = {
+        id: Users.length,
         username: this.state.username,
         email: this.state.email,
         password: Base64.encode(this.state.password),
         firstName: this.state.firstName,
-        lastName: this.state.lasName,
+        lastName: this.state.lastName,
         gender: this.state.gender,
         genderPreference: this.state.genderPreference,
-        iceBreakerIndex: 0
+        iceBreakerIndex: 0,
+        liked: [],
+        matched: [],
+        bio: ""
       };
       getRandomQuestion(userToAdd); //usage of the function in MockedDatabase
       Users.push(userToAdd);
-      this._signInAsync(Users.length - 1);
+      this._signInAsync(userToAdd.id);
+      console.log(Users);
     }
   };
 

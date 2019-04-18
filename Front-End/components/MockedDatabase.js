@@ -31,6 +31,7 @@ export const getRandomQuestion = user => {
 
 export var Users = [
   {
+    id: 0,
     username: "Admin",
     email: "sproutadmin@gmail.com",
     password: Base64.encode("Admin"),
@@ -44,9 +45,12 @@ export var Users = [
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 0,
+    liked: [],
+    matched: [],
     bio: "Hi, I am the only admin of the Sprout app!"
   },
   {
+    id: 1,
     username: "FakeUser1",
     email: "fakeEmail1@fmail.com",
     password: Base64.encode("IAmFake"),
@@ -59,6 +63,8 @@ export var Users = [
       return MockedQuestionDataBase[this.iceBreakerIndex];
     },
     answerSelected: 1,
+    liked: [],
+    matched: [],
     bio:
       "Hello there! \nMy name is Susan, looking forward to know more about you!"
   }
