@@ -85,12 +85,12 @@ class IceBreaker extends Component {
 
   handleButton1 = () => {
     this.setState({ answer1Selected: true, answer2Selected: false });
-    if (this.props.compareAnswer) {
-      if (this.props.answerSelected == 1) {
-        showError("They picked the same answer!!");
+    if (this.props.compareAnswers) {
+      if (this.props.user.answerSelected == 1) {
+        this.showError("They picked the same answer!!");
       }
-      if (this.props.answerSelected == 2) {
-        showError("They picked the other answer.");
+      if (this.props.user.answerSelected == 2) {
+        this.showError("They picked the other answer.");
       }
     } else {
       this.props.user.answerSelected = 1;
@@ -99,12 +99,12 @@ class IceBreaker extends Component {
 
   handleButton2 = () => {
     this.setState({ answer2Selected: true, answer1Selected: false });
-    if (this.props.compareAnswer) {
-      if (this.props.answerSelected == 2) {
-        showError("They picked the same answer!!");
+    if (this.props.compareAnswers) {
+      if (this.props.user.answerSelected == 2) {
+        this.showError("They picked the same answer!!");
       }
-      if (this.props.answerSelected == 1) {
-        showError("They picked the other answer.");
+      if (this.props.user.answerSelected == 1) {
+        this.showError("They picked the other answer.");
       }
     } else {
       this.props.user.answerSelected = 2;

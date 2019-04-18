@@ -44,7 +44,6 @@ class SignInScreen extends Component {
     //accepts strings. It stores the information of current user so we
     //can fetch it anywhere in the app.
     const id = Users[Users.indexOf(user)].id.toString();
-    console.log(id);
     await AsyncStorage.setItem("userLoggedIn", id);
     this.props.navigation.navigate("Main");
   };

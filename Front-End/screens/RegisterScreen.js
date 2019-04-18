@@ -87,6 +87,7 @@ class RegisterScreen extends Component {
         gender: this.state.gender,
         genderPreference: this.state.genderPreference,
         iceBreakerIndex: 0,
+        answerSelected: 0,
         liked: [],
         matched: [],
         bio: ""

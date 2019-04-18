@@ -48,11 +48,11 @@ export default class MatchScreen extends React.Component {
       //find the logged-in user first, then create a copy of the user list so we don't
       //change the original one in the mocked database. Remove the current user from
       //the list, then save it to state.
-      const indexString = await AsyncStorage.getItem("userLoggedIn");
-      if (indexString) {
-        this.setState({ UserId: parseInt(indexString, 10) });
+      const idString = await AsyncStorage.getItem("userLoggedIn");
+      if (idString) {
+        this.setState({ UserId: parseInt(idString, 10) });
         const UsersDuplicate = Users.slice(0);
-        UsersDuplicate.splice(parseInt(indexString, 10), 1);
+        UsersDuplicate.splice(parseInt(idString, 10), 1);
         const OtherUsers = UsersDuplicate;
         this.setState({
           OtherUsers
@@ -103,7 +103,7 @@ export default class MatchScreen extends React.Component {
           />
           <LikeButton
             userId={this.state.UserId}
-            likedIndex={this.state.OtherUsers[this.state.OtherUsersIndex].id}
+            likedId={this.state.OtherUsers[this.state.OtherUsersIndex].id}
             goToNext={this.handleGoToNext}
           />
         </View>
