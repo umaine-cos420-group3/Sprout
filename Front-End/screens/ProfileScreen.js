@@ -32,18 +32,20 @@ export default class ProfileScreen extends React.Component {
 
   //componentDidMount is run before the component mounts. It makes sense to fetch
   //the logged-in user information here.
-  componentDidMount = async () => {
-    try {
-      const idString = await AsyncStorage.getItem("userLoggedIn");
-      const user = Users[parseInt(idString, 10)]; //parseInt(string, base) changes the string index back to int
-      if (idString) {
-        this.setState({
-          user
-        });
+  componentDidMount = () => {
+    this.props.navigation.addListener("willFocus", async playload => {
+      try {
+        const idString = await AsyncStorage.getItem("userLoggedIn");
+        const user = Users[parseInt(idString, 10)]; //parseInt(string, base) changes the string index back to int
+        if (idString) {
+          this.setState({
+            user
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
   render() {

@@ -95,7 +95,6 @@ class RegisterScreen extends Component {
       getRandomQuestion(userToAdd); //usage of the function in MockedDatabase
       Users.push(userToAdd);
       this._signInAsync(userToAdd.id);
-      console.log(Users);
     }
   };
 
