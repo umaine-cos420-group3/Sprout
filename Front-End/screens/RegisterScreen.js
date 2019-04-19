@@ -236,7 +236,11 @@ class RegisterScreen extends Component {
             <Text style={styles.label}>Female</Text>
           </TouchableOpacity>
         </View>
-        <Button title="Register!" onPress={this.checkUserInputs} />
+        <Button
+          style={{ marginBottom: 20 }}
+          title="Register!"
+          onPress={this.checkUserInputs}
+        />
         <ErrorMessage
           visible={this.state.error}
           message={this.state.errorMessage}
