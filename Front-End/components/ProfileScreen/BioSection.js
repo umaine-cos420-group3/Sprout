@@ -53,7 +53,7 @@ class BioSection extends Component {
   };
 
   handleInput = event => {
-    const index = Users.findIndex(this.props.user);
+    const index = Users.indexOf(this.props.user);
     Users[index].bio = event.nativeEvent.text;
   };
 
