@@ -83,6 +83,15 @@ class IceBreaker extends Component {
     errorMessage: ""
   };
 
+  componentWillReceiveProps = nextProps => {
+    if (this.props.user != nextProps.user) {
+      this.setState({
+        answer1Selected: false,
+        answer2Selected: false
+      });
+    }
+  };
+
   handleButton1 = () => {
     this.setState({ answer1Selected: true, answer2Selected: false });
     if (this.props.compareAnswers) {
