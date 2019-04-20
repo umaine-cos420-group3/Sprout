@@ -4,12 +4,11 @@ var Sprout = express();
 var bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
-
 var connection = mysql.createConnection({
 	host: "localhost",
-	user: "taidgh",
+	user: "matt",
 	password: "password",
-	database: "Sprout"
+	database: "sprout"
 });
 
 connection.connect(function (err) {
@@ -33,30 +32,48 @@ var server = Sprout.listen(3000, 'localhost', function () {
 	console.log(host);
 	console.log('Example app listening at http://%s:%s', host, port);
 });
+
 //Returns a list of all users, BAD PRACTICE WILL BE CHANGED SOON, JUST NEEDED FOR DATABASE TESTING. 
+//
 Sprout.get('/user', function (req, res) {
-	connection.query('select * from Users', function (error, results, fields) {
+
+	var params = req.query;
+
+	var expression = `SELECT * FROM users WHERE (email = '${params.email}' AND password = '${params.password}')`;
+
+	console.log(expression);
+
+	connection.query(expression, function (error, results, fields) {
 		if (error) throw error;
 		res.end(JSON.stringify(results));
 	});
 });
 
-//User registration, requires password to log in the database, Match_idMatches and Report_idReport fields should be 0. 
+//who needs security? or field checking?
 Sprout.post('/user', function (req, res) {
-	var params = req.body;
-	console.log(params);
+	var params = req.query;
 
-	if (params.pwd != undefined) {
-
-		bcrypt.hash(params.pwd, 10, function (err, hash) {
-			params.pwd = hash;
-			connection.query('INSERT INTO Users SET ?', params, function (error, results, fields) {
-				if (error) throw error;
-				res.end(JSON.stringify(results));
-			});
-
-		});
-	}
+	var expression = `INSERT INTO users (first_name, last_name, email, password, gender, gender_interested) VALUES 
+	(	'${params.first_name}','${params.last_name}', '${params.email}', '${params.password}','${params.gender}','${params.gender_interested}') `;
 
 
+	console.log(expression);
+
+	connection.query(expression, function(error, results, fields) {
+		if(error) throw error;
+		res.end(JSON.stringify(results));
+	});
+
+
+	// if (params.pwd != undefined) {
+
+	// 	bcrypt.hash(params.pwd, 10, function (err, hash) {
+	// 		params.pwd = hash;
+	// 		connection.query('INSERT INTO Users SET ?', params, function (error, results, fields) {
+	// 			if (error) throw error;
+	// 			res.end(JSON.stringify(results));
+	// 		});
+
+	// 	});
+	// }
 });
