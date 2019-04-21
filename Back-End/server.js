@@ -4,9 +4,11 @@ var Sprout = express();
 var bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 
+
+//Please don't change these
 var connection = mysql.createConnection({
   host: "localhost",
-  user: "matt",
+  user: "root",
   password: "password",
   database: "sprout"
 });
@@ -41,6 +43,21 @@ var server = Sprout.listen(3000, "localhost", function() {
 Sprout.get("/user", function(req, res) {
   var params = req.query;
 
+  var expression = `SELECT * FROM users`
+
+  console.log(expression);
+
+  connection.query(expression, function(error, results, fields) {
+    if (error) throw error;
+    res.end(JSON.stringify(results));
+  });
+});
+
+
+Spout.post("/login"){
+
+  var params = req.query;
+
   var expression = `SELECT * FROM users WHERE (email = '${
     params.email
   }' AND password = '${params.password}')`;
@@ -51,8 +68,10 @@ Sprout.get("/user", function(req, res) {
     if (error) throw error;
     res.end(JSON.stringify(results));
   });
-});
 
+}
+
+//User registration end_point
 Sprout.post("/user", function(req, res) {
   var params = req.query;
 
