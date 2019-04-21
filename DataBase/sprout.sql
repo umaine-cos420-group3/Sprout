@@ -50,7 +50,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `photo_one_image_path`, `photo_two_image_path`, `photo_three_image_path`, `ib_question`, `ib_answer_one`, `ib_answer_two`, `ib_answer`, `gender`, `gender_interested`) VALUES
-(1, 'matt', 'loewen', 'matthew.loewen@maine.edu', 'password', '', '', '', 'to be or not to be?', 'to be', 'not to be', 1, 'male', 'male');
+(1, 'matt', 'loewen', 'matthew.loewen@maine.edu', 'password', '', '', '', 'to be or not to be?', 'to be', 'not to be', 1, 'male', 'female');
 
 --
 -- Indexes for dumped tables
