@@ -54,8 +54,7 @@ Sprout.get("/user", function(req, res) {
 });
 
 
-Spout.post("/login"){
-
+Sprout.post("/login", function(req,res){
   var params = req.query;
 
   var expression = `SELECT * FROM users WHERE (email = '${
@@ -69,7 +68,7 @@ Spout.post("/login"){
     res.end(JSON.stringify(results));
   });
 
-}
+});
 
 //User registration end_point
 Sprout.post("/user", function(req, res) {
