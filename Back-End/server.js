@@ -13,6 +13,13 @@ var connection = mysql.createConnection({
   database: "sprout"
 });
 
+// var connection = mysql.createConnection({
+// 	host: "localhost",
+// 	user: "matt",
+// 	password: "password",
+// 	database: "testing"
+// })
+
 connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -92,3 +99,35 @@ Sprout.post("/user", function(req, res) {
     res.end(JSON.stringify(results));
   });
 });
+
+
+Sprout.get("/matches", function(req,res){
+	var params = req.query;
+
+	var expression = `SELECT * FROM matches WHERE (matcher_key = ${params.userID} OR matchee_key = ${params.userID})`;
+
+	console.log(expression);
+
+	//get records of the matches
+	connection.query(expression, function(error, results, fields) {
+		if (error) throw error;
+
+
+		//get the matches info here and send back
+
+
+		res.end(JSON.stringify(results));
+	  });
+});
+
+Sprout.get("/getMessages", function(req,res){
+	//
+
+});
+
+Sprout.post("/sendMessage", function(req,res){
+	//
+
+
+});
+

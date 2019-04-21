@@ -45,7 +45,5 @@ CREATE TABLE IF NOT EXISTS `Users` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
-
 INSERT INTO Report (`idReport`) VALUES (0);
 INSERT INTO Matches (`idMatch`) VALUES (0);
