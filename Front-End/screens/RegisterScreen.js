@@ -98,6 +98,10 @@ class RegisterScreen extends Component {
     }
   };
 
+  toHomePage = () => {
+    this.props.navigation.navigate("Auth");
+  };
+
   handleGenderSelect = gender => () => {
     switch (gender) {
       case "male":
@@ -239,6 +243,12 @@ class RegisterScreen extends Component {
           style={{ marginBottom: 20 }}
           title="Register!"
           onPress={this.checkUserInputs}
+        />
+        <Button
+          title="Home"
+          onPress={this.toHomePage}
+          //not working? Why? 
+          style = {{marginTop: 40}}
         />
         <ErrorMessage
           visible={this.state.error}
