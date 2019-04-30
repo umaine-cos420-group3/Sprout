@@ -4,7 +4,8 @@ import {
   Button,
   StyleSheet,
   ScrollView,
-  View
+  View,
+  Image
 } from "react-native";
 import SignIn from "../components/SignInScreen/SignIn";
 import ErrorMessage from "../components/ErrorMessage";
@@ -19,6 +20,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: "column"
+  },
+  textContainer: {
+    textAlign: "center",
+    fontSize: 20,
+    marginBottom: 20
   }
 });
 
@@ -35,7 +41,7 @@ class SignInScreen extends Component {
   }
 
   static navigationOptions = {
-    title: "Please sign in"
+    title: "Sprout App"
   };
 
   _signInAsync = async user => {
@@ -88,6 +94,9 @@ class SignInScreen extends Component {
         style={styles.scollContainer}
         keyboardShouldPersistTaps={"always"}
       >
+        <Text style={styles.textContainer}> 
+          Please login to continue
+        </Text>
         <SignIn
           onUsernameChange={this.saveUsername}
           onPasswordChange={this.savePassword}
