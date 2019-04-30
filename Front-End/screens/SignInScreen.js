@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   View,
+  Text,
   Image
 } from "react-native";
 import SignIn from "../components/SignInScreen/SignIn";
